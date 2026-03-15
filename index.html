@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gocab - Modern, Fast, and Secure Taxi Booking Service. Book rides instantly or schedule them for later.">
+    <title>Gocab - Modern Taxi Booking</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo">
+            <span class="logo-text">Go<span class="highlight">cab</span></span>
+        </div>
+        <nav class="nav-links">
+            <a href="#booking">Book a Ride</a>
+            <a href="#drivers">Our Drivers</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#faq">FAQ</a>
+            <a href="#support">Support</a>
+        </nav>
+        <button class="btn-primary" id="loginBtn">Login / Sign Up</button>
+        <div class="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- Hero Section & Booking Form -->
+    <section class="hero" id="booking">
+        <div class="hero-content">
+            <h1>Your Ride, <span class="highlight">On Time</span> Every Time</h1>
+            <p>Experience speed, safety, and convenience with our premium cab service. Book now or schedule for later.</p>
+            
+            <div class="booking-card">
+                <div class="booking-tabs">
+                    <button class="tab active" id="tab-instant" data-type="instant">Instant Ride</button>
+                    <button class="tab" id="tab-scheduled" data-type="scheduled">Schedule Ride</button>
+                </div>
+                <form id="bookingForm">
+                    <div class="input-group">
+                        <i class="fas fa-map-marker-alt icon-pickup"></i>
+                        <input type="text" id="pickupLocation" placeholder="Enter Pickup Location" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-location-arrow icon-dropoff"></i>
+                        <input type="text" id="dropoffLocation" placeholder="Enter Drop-off Location" required>
+                    </div>
+                    
+                    <div class="input-group" id="scheduledTimeContainer" style="display: none;">
+                        <i class="fas fa-clock icon-time"></i>
+                        <input type="datetime-local" id="scheduledTime">
+                    </div>
+
+                    <div class="vehicle-options">
+                        <div class="vehicle-card active" data-vehicle="economy">
+                            <i class="fas fa-car"></i>
+                            <span>Economy</span>
+                        </div>
+                        <div class="vehicle-card" data-vehicle="premium">
+                            <i class="fas fa-car-side"></i>
+                            <span>Premium</span>
+                        </div>
+                        <div class="vehicle-card" data-vehicle="suv">
+                            <i class="fas fa-truck-pickup"></i>
+                            <span>SUV</span>
+                        </div>
+                    </div>
+
+                    <div class="fare-estimate" id="fareEstimateContainer">
+                        Estimated Fare: <span class="highlight-text" id="estimatedFare">$0.00</span>
+                    </div>
+
+                    <button type="submit" class="btn-primary full-width" id="bookBtn">Book Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tracking Section (Hidden by default) -->
+    <section class="tracking-section hidden" id="trackingSection">
+        <div class="container">
+            <h2>Ride Status</h2>
+            <div class="tracking-card">
+                <div class="tracking-status" id="trackingStatus">Assigning Driver...</div>
+                <div class="progress-bar">
+                    <div class="progress" id="rideProgress"></div>
+                </div>
+                <div class="driver-info-mini hidden" id="assignedDriverMini">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Driver Profiles -->
+    <section class="drivers" id="drivers">
+        <div class="container">
+            <h2 class="section-title">Meet Our <span class="highlight">Top Drivers</span></h2>
+            <div class="driver-grid" id="driverGrid">
+                <!-- Driver Profiles populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews -->
+    <section class="reviews" id="reviews">
+        <div class="container">
+            <h2 class="section-title">What Our <span class="highlight">Customers Say</span></h2>
+            <div class="review-grid">
+                <div class="review-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p>"Fastest cab service I've ever used. The app is so smooth and drivers are professional."</p>
+                    <div class="reviewer">- Sarah J.</div>
+                </div>
+                <div class="review-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                    <p>"Love the scheduling feature. I never have to worry about missing my morning flights."</p>
+                    <div class="reviewer">- Mike T.</div>
+                </div>
+                <div class="review-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p>"The premium SUV was spotless and the ride was incredibly comfortable. Highly recommend."</p>
+                    <div class="reviewer">- Elena R.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked <span class="highlight">Questions</span></h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h4 class="faq-question">How are fares calculated? <i class="fas fa-chevron-down"></i></h4>
+                    <div class="faq-answer">Fares are calculated based on distance, time, and the selected vehicle type.</div>
+                </div>
+                <div class="faq-item">
+                    <h4 class="faq-question">Can I cancel my scheduled ride? <i class="fas fa-chevron-down"></i></h4>
+                    <div class="faq-answer">Yes, you can cancel scheduled rides up to 30 minutes before the pickup time without any fee.</div>
+                </div>
+                <div class="faq-item">
+                    <h4 class="faq-question">Are the drivers vetted? <i class="fas fa-chevron-down"></i></h4>
+                    <div class="faq-answer">Absolutely. All our drivers undergo a strict background check and vehicle inspection process.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support / Footer -->
+    <footer id="support">
+        <div class="container footer-content">
+            <div class="footer-col">
+                <h3>Go<span class="highlight">cab</span></h3>
+                <p>Modern, reliable, and secure transportation at your fingertips.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Support</h4>
+                <p><i class="fas fa-envelope"></i> support@gocab.com</p>
+                <p><i class="fas fa-phone"></i> +1 (800) 123-4567</p>
+            </div>
+            <div class="footer-col">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Gocab. Built with <i class="fas fa-heart"></i> using Object-Oriented JS.</p>
+        </div>
+    </footer>
+
+    <!-- Payment Modal (Hidden) -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content text-dark">
+            <span class="close-modal">&times;</span>
+            <h2>Secure Payment</h2>
+            <p>Total: <strong id="modalFareDisplay">$0.00</strong></p>
+            <div class="payment-methods">
+                <label><input type="radio" name="paymentMethod" value="CardPayment" checked> Credit/Debit Card</label>
+                <label><input type="radio" name="paymentMethod" value="DigitalWallet"> Digital Wallet</label>
+            </div>
+            <button class="btn-primary full-width" style="margin-top: 1rem;" id="confirmPaymentBtn">Confirm & Pay</button>
+        </div>
+    </div>
+
+    <!-- Application Logic -->
+    <script src="js/models.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
